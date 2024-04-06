@@ -20,6 +20,11 @@ fn main() {
     println!("{}", s4);
     change(&mut s4);
     println!("{}", s4);
+
+    let mut s5 = String::from("ALERT Try to return the first word");
+    let word = first_word(&s5);
+    println!("{}", &word);
+    s5. clear();
 }
 
 fn takes_ownership(some: String) {
@@ -37,4 +42,14 @@ fn calc_len(some: &String) -> usize {
 
 fn change(some: &mut String) {
     some.push_str(" ADDED TEXT"); //Reference was passed as immutable, no error will occur here.
+}
+
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i]; //Returns a slice from the 0th position of string, up until the first space.
+        }
+    }
+    &s[..]
 }
